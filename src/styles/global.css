@@ -74,3 +74,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.input-root.input-error input {
+  @apply border-2
+    border-destructive focus:border-red-500 focus:ring-destructive focus-visible:ring-destructive;
+}
