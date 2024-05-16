@@ -27,5 +27,6 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true },
       },
     ],
+    'react-refresh/only-export-components': 'off',
   },
 }
