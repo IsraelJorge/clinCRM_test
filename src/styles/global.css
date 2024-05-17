@@ -65,7 +65,8 @@
 }
 
 .input-root.input-error input,
-.textarea-root.textarea-error textarea {
+.textarea-root.textarea-error textarea,
+.select-root.select-error button {
   @apply border-2
     border-destructive focus:border-red-500 focus:ring-destructive focus-visible:ring-destructive;
 }

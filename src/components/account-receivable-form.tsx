@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 
+import { paymentMethodOptions } from '@/__mocks__/payment-method-options'
 import {
   AccountReceivable,
   AccountReceivableSchema,
 } from '@/data/schemas/AccountReceivable'
 
 import { Form } from './form'
+import { SelectData } from './select-data'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { TextArea } from './ui/textarea'
@@ -21,7 +23,7 @@ export function AccountReceivableForm({
 
   return (
     <Form schema={AccountReceivableSchema} defaultValues={defaultValue}>
-      {({ register, formState: { errors } }) => (
+      {({ register, formState: { errors }, control }) => (
         <section className="flex flex-col">
           <input
             type="hidden"
@@ -46,15 +48,22 @@ export function AccountReceivableForm({
             </Input>
           </div>
           <div className="flex gap-2">
-            <Input
+            <SelectData
+              data={paymentMethodOptions}
+              name="paymentMethod"
               placeholder="Método de pagamento"
-              {...register('paymentMethod')}
+              displayKey="label"
+              valueKey="value"
+              className="flex-1"
+              control={control}
               defaultValue={defaultValue?.paymentMethod}
             >
-              <Input.Error message={errors.paymentMethod?.message} />
-            </Input>
+              <SelectData.Error message={errors?.paymentMethod?.message} />
+            </SelectData>
+
             <Input
               placeholder="Data de emissão"
+              className="flex-1"
               {...register('issuanceDate')}
               defaultValue={defaultValue?.issuanceDate}
             >
