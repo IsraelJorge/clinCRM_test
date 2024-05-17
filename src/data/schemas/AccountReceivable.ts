@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import { PaymentMethodSchema } from './PaymentMethod'
 
 export const AccountReceivableSchema = z.object({
