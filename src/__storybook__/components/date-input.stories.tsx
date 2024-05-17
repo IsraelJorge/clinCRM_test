@@ -16,6 +16,7 @@ const DateInputTemplate = ({ children }: { children?: React.ReactNode }) => {
         <DateInput
           name="issuanceDate"
           placeholder="Data de emissão"
+          defaultValue={new Date()}
           control={control}
         >
           {children}

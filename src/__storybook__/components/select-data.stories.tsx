@@ -23,6 +23,7 @@ const SelectTemplate = ({ children }: { children?: React.ReactNode }) => {
           displayKey="label"
           valueKey="value"
           control={control}
+          defaultValue={paymentMethodOptions[0].value}
         >
           {children}
         </SelectData>

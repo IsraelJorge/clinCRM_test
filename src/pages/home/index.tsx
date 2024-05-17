@@ -1,16 +1,46 @@
 import { Link } from 'react-router-dom'
 
-import { makeDataTable } from '@/__mocks__/data-table-mock'
 import { DataTable } from '@/components/data-table'
 import { Icon } from '@/components/icon'
 import { ContainerLayout } from '@/components/layouts/container-layout'
 import { Button } from '@/components/ui/button'
+import { useAccountReceivableDelete } from '@/data/hooks/useAccountReceivableDelete'
+import { useAccountReceivableFindAll } from '@/data/hooks/useAccountReceivableFindAll'
+import { useLocalStorage } from '@/data/hooks/useLocalStorage'
+import { AccountReceivable } from '@/data/schemas/AccountReceivable'
+import { useDialog } from '@/providers/dialog-provider'
 import { PaymentMethodMap } from '@/utils/PaymentMethodMap'
-import { PriceHelper } from '@/utils/PriceHelper'
 import { Routes } from '@/utils/ui/Routes'
 
 export function Home() {
-  const accountReceivables = makeDataTable(10)
+  const { showDialog } = useDialog()
+
+  const { accountReceivables } = useAccountReceivableFindAll()
+  const { remove } = useAccountReceivableDelete()
+
+  const { onRefreshLocalStorage, refreshLocalStorage } = useLocalStorage()
+
+  console.log({ refreshLocalStorage })
+
+  const handleDelete = (data: AccountReceivable) => {
+    showDialog({
+      title: 'Excluir conta a receber',
+      message: `Deseja realmente excluir a conta a receber de ${data.patientName}?`,
+      buttons: [
+        {
+          label: 'Cancelar',
+          type: 'cancel',
+        },
+        {
+          label: 'Sim',
+          onClick: () => {
+            remove(data.id)
+            onRefreshLocalStorage()
+          },
+        },
+      ],
+    })
+  }
 
   return (
     <ContainerLayout>
@@ -37,7 +67,7 @@ export function Home() {
           },
           amount: {
             header: 'Valor',
-            transform: (value) => PriceHelper.formatCurrency(value),
+            transform: (value) => value,
           },
           paymentMethod: {
             header: 'Método de pagamento',
@@ -51,10 +81,9 @@ export function Home() {
         keyExtractor={(row) => row.id}
         actionColumn={{
           edit: (row) => Routes.accountReceivableEdit(row.id),
-          delete: (row) => {
-            console.log('delete', row)
-          },
+          delete: (row) => handleDelete(row),
         }}
+        emptyMessage="Sem contas a receber cadastradas"
       />
     </ContainerLayout>
   )

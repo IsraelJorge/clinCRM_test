@@ -1,4 +1,4 @@
-import { FormHTMLAttributes } from 'react'
+import { FormHTMLAttributes, useEffect } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
@@ -25,6 +25,7 @@ export function Form<
   schema,
   onSubmit,
   defaultValues,
+
   ...props
 }: FormProps<Schema>) {
   const methods = useForm({
@@ -32,6 +33,12 @@ export function Form<
     defaultValues: defaultValues,
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    if (defaultValues) {
+      methods.reset(defaultValues)
+    }
+  }, [defaultValues])
 
   return (
     <form

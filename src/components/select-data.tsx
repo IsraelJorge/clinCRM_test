@@ -2,10 +2,10 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import {
   Control,
-  Controller,
   FieldValues,
   Path,
   PathValue,
+  useController,
 } from 'react-hook-form'
 
 import {
@@ -57,52 +57,46 @@ function SelectDataRoot<
 }: SelectDataProps<Data, TFields>) {
   const hasError = checkChildrenHasError(children as ChildrenError)
 
+  const { field } = useController({ name, control, defaultValue, disabled })
+
   return (
-    <Controller
-      control={control}
-      name={name}
-      defaultValue={defaultValue}
-      disabled={disabled}
-      render={({ field: { onChange, value } }) => {
-        return (
-          <div
-            className={cn('select-root w-full', className, {
-              'select-error': hasError,
-              'pb-5': !noMargin,
+    <div
+      className={cn('select-root w-full', className, {
+        'select-error': hasError,
+        'pb-5': !noMargin,
+      })}
+    >
+      <SelectContainer
+        onValueChange={field.onChange}
+        disabled={field.disabled}
+        value={field.value}
+        defaultValue={defaultValue}
+        name={name}
+      >
+        <SelectTrigger
+          className={cn({
+            '[&_span]:text-muted-foreground': !field.value,
+          })}
+          {...props}
+        >
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {data.map((item) => {
+              const value = String(item[valueKey])
+              const label = String(item[displayKey])
+              return (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              )
             })}
-          >
-            <SelectContainer
-              onValueChange={onChange}
-              disabled={disabled}
-              value={value}
-            >
-              <SelectTrigger
-                className={cn({
-                  '[&_span]:text-muted-foreground': !value,
-                })}
-                {...props}
-              >
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {data.map((item) => {
-                    const value = String(item[valueKey])
-                    const label = String(item[displayKey])
-                    return (
-                      <SelectItem key={value} value={value}>
-                        {label}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </SelectContainer>
-            {children}
-          </div>
-        )
-      }}
-    />
+          </SelectGroup>
+        </SelectContent>
+      </SelectContainer>
+      {children}
+    </div>
   )
 }
 

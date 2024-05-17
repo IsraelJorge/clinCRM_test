@@ -11,6 +11,7 @@ type DataTableProps<TData extends Record<string, unknown>> = {
   data: TData[]
   actionColumn?: ActionColumn<TData>
   keyExtractor: (row: TData, index: number) => string | number
+  emptyMessage?: string
 }
 
 export type ColumnInfo<TData extends Record<string, unknown>> = {
@@ -31,8 +32,11 @@ export function DataTable<TData extends Record<string, unknown>>({
   data,
   actionColumn,
   keyExtractor,
+  emptyMessage,
 }: DataTableProps<TData>) {
   const columnKeys = Object.keys(columns)
+
+  const isTableEmpty = Boolean(data?.length)
 
   const shouldRenderAction =
     Boolean(actionColumn?.edit) || Boolean(actionColumn?.delete)
@@ -88,35 +92,48 @@ export function DataTable<TData extends Record<string, unknown>>({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((item, index) => {
-          const key = keyExtractor(item, index)
+        {isTableEmpty ? (
+          <>
+            {data.map((item, index) => {
+              const key = keyExtractor(item, index)
 
-          return (
-            <TableRow key={key}>
-              {columnKeys.map((key, columnIndex) => {
-                const column = columns[key]
+              return (
+                <TableRow key={key}>
+                  {columnKeys.map((key, columnIndex) => {
+                    const column = columns[key]
 
-                const value = column?.transform
-                  ? column?.transform!(
-                      item[key as keyof typeof columns] as TData[string],
-                      item,
-                      index,
+                    const value = column?.transform
+                      ? column?.transform!(
+                          item[key as keyof typeof columns] as TData[string],
+                          item,
+                          index,
+                        )
+                      : (item[key as keyof typeof columns] as ReactNode)
+
+                    return (
+                      <TableCell
+                        data-label={column?.header}
+                        key={`${column?.header}-${columnIndex}`}
+                      >
+                        {value}
+                      </TableCell>
                     )
-                  : (item[key as keyof typeof columns] as ReactNode)
-
-                return (
-                  <TableCell
-                    data-label={column?.header}
-                    key={`${column?.header}-${columnIndex}`}
-                  >
-                    {value}
-                  </TableCell>
-                )
-              })}
-              {shouldRenderAction ? renderActionColumn(item, index) : null}
-            </TableRow>
-          )
-        })}
+                  })}
+                  {shouldRenderAction ? renderActionColumn(item, index) : null}
+                </TableRow>
+              )
+            })}
+          </>
+        ) : (
+          <TableRow>
+            <TableCell
+              colSpan={columnKeys.length + 2}
+              className="h-24 text-center"
+            >
+              {emptyMessage}
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   )
