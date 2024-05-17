@@ -6,6 +6,7 @@ import {
   AccountReceivableSchema,
 } from '@/data/schemas/AccountReceivable'
 
+import { DateInput } from './date-input'
 import { Form } from './form'
 import { SelectData } from './select-data'
 import { Button } from './ui/button'
@@ -61,14 +62,15 @@ export function AccountReceivableForm({
               <SelectData.Error message={errors?.paymentMethod?.message} />
             </SelectData>
 
-            <Input
+            <DateInput
               placeholder="Data de emissão"
+              name="issuanceDate"
               className="flex-1"
-              {...register('issuanceDate')}
+              control={control}
               defaultValue={defaultValue?.issuanceDate}
             >
-              <Input.Error message={errors.issuanceDate?.message} />
-            </Input>
+              <DateInput.Error message={errors.issuanceDate?.message} />
+            </DateInput>
           </div>
           <div>
             <TextArea

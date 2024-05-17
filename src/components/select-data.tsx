@@ -38,7 +38,7 @@ export type SelectDataProps<
   noMargin?: boolean
 } & ComponentPropsWithoutRef<typeof SelectTrigger>
 
-export function SelectDataRoot<
+function SelectDataRoot<
   Data extends Record<string, unknown>,
   TFields extends FieldValues,
 >({
