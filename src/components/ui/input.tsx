@@ -5,15 +5,34 @@ import {
   ChildrenError,
   checkChildrenHasError,
 } from '@/utils/checkChildrenHasError'
+import { Mask } from '@/utils/Mask'
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   noMargin?: boolean
+  mask?: 'currency' | 'name'
 }
 
 const InputRoot = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, children, noMargin, ...props }, ref) => {
+  ({ className, type, children, noMargin, onChange, mask, ...props }, ref) => {
     const hasError = checkChildrenHasError(children as ChildrenError)
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = handleMask(e.target.value)
+      e.target.value = value
+      onChange?.(e)
+    }
+
+    const handleMask = (value: string) => {
+      switch (mask) {
+        case 'currency':
+          return Mask.currency(value)
+        case 'name':
+          return Mask.name(value)
+        default:
+          return value
+      }
+    }
 
     return (
       <div
@@ -29,6 +48,7 @@ const InputRoot = React.forwardRef<HTMLInputElement, InputProps>(
             className,
           )}
           ref={ref}
+          onChange={handleChange}
           {...props}
         />
         {children}

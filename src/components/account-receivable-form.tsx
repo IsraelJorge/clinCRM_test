@@ -35,6 +35,7 @@ export function AccountReceivableForm({
           <div className="flex gap-2">
             <Input
               placeholder="Nome"
+              mask="name"
               {...register('patientName')}
               defaultValue={defaultValue?.patientName}
             >
@@ -42,6 +43,7 @@ export function AccountReceivableForm({
             </Input>
             <Input
               placeholder="Valor"
+              mask="currency"
               {...register('amount')}
               defaultValue={defaultValue?.amount}
             >
