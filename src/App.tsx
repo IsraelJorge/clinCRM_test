@@ -1,16 +1,7 @@
-import { Dialog } from '@/components/dialog'
-import { Button } from '@/components/ui/button'
-import { DialogProvider } from '@/providers/dialog-provider'
+import { Providers } from './providers'
 
 function App() {
-  return (
-    <DialogProvider>
-      <Dialog />
-      <div className="flex h-screen items-center justify-center">
-        <Button>Button</Button>
-      </div>
-    </DialogProvider>
-  )
+  return <Providers />
 }
 
 export default App

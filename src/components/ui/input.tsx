@@ -7,16 +7,19 @@ import {
 } from '@/utils/checkChildrenHasError'
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  noMargin?: boolean
+}
 
 const InputRoot = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, children, ...props }, ref) => {
+  ({ className, type, children, noMargin, ...props }, ref) => {
     const hasError = checkChildrenHasError(children as ChildrenError)
 
     return (
       <div
         className={cn('input-root', {
           'input-error': hasError,
+          'pb-5': !noMargin,
         })}
       >
         <input

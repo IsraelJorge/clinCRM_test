@@ -8,7 +8,7 @@ export const AccountReceivableSchema = z.object({
   operationPerformed: z.string(),
   amount: z.number(),
   paymentMethod: PaymentMethodSchema,
-  issuanceDate: z.date(),
+  issuanceDate: z.string(),
 })
 
 export type AccountReceivable = z.infer<typeof AccountReceivableSchema>
