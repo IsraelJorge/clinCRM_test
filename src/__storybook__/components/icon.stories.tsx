@@ -10,7 +10,7 @@ const iconsName: IconName[] = [
 ]
 
 export default {
-  title: 'components/icon',
+  title: 'components/Icon',
   component: Icon,
   args: {
     name: 'AArrowDown',

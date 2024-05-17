@@ -8,7 +8,7 @@
   }
 
   tr {
-    @apply relative block max-w-full border-b-4 border-gray-100
+    @apply relative block max-w-full border-b-4 border-muted
       lg:table-row lg:border-b-0;
   }
 

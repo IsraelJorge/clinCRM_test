@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react'
 
+import { DialogProvider } from '@/providers/dialog-provider'
+
 import '@/styles/global.css'
 
 const preview: Preview = {
@@ -11,6 +13,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <DialogProvider>
+        <Story />
+      </DialogProvider>
+    ),
+  ],
 }
 
 export default preview

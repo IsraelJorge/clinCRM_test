@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Input, InputErrorProps } from '@/components/ui/input'
 
 export default {
-  title: 'components/input',
+  title: 'components/Input',
   component: Input,
 } as Meta<typeof Input>
 
