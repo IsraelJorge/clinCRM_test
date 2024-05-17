@@ -1,10 +1,14 @@
+import { Link } from 'react-router-dom'
+
 import {
   AccountReceivable,
   AccountReceivableSchema,
 } from '@/data/schemas/AccountReceivable'
 
 import { Form } from './form'
+import { Button } from './ui/button'
 import { Input } from './ui/input'
+import { TextArea } from './ui/textarea'
 
 export type AccountReceivableFormProps = {
   defaultValue?: AccountReceivable
@@ -13,6 +17,8 @@ export type AccountReceivableFormProps = {
 export function AccountReceivableForm({
   defaultValue,
 }: AccountReceivableFormProps) {
+  const isEdit = Boolean(defaultValue?.id)
+
   return (
     <Form schema={AccountReceivableSchema} defaultValues={defaultValue}>
       {({ register, formState: { errors } }) => (
@@ -23,7 +29,7 @@ export function AccountReceivableForm({
             {...register('id')}
             defaultValue={defaultValue?.id}
           />
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             <Input
               placeholder="Nome"
               {...register('patientName')}
@@ -38,6 +44,8 @@ export function AccountReceivableForm({
             >
               <Input.Error message={errors.amount?.message} />
             </Input>
+          </div>
+          <div className="flex gap-2">
             <Input
               placeholder="Método de pagamento"
               {...register('paymentMethod')}
@@ -54,13 +62,19 @@ export function AccountReceivableForm({
             </Input>
           </div>
           <div>
-            <Input
+            <TextArea
               placeholder="Operação realizada"
               {...register('operationPerformed')}
               defaultValue={defaultValue?.operationPerformed}
             >
-              <Input.Error message={errors.operationPerformed?.message} />
-            </Input>
+              <TextArea.Error message={errors.operationPerformed?.message} />
+            </TextArea>
+          </div>
+          <div className="flex justify-between">
+            <Button variant="destructive" asChild>
+              <Link to="..">Cancelar</Link>
+            </Button>
+            <Button type="submit">{isEdit ? 'Atualizar' : 'Cadastrar'}</Button>
           </div>
         </section>
       )}

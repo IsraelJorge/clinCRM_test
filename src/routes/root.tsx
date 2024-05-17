@@ -4,7 +4,7 @@ import { Header } from '@/components/header'
 
 export const Root = () => {
   return (
-    <main>
+    <main className="flex min-h-screen flex-col">
       <Header />
       <Outlet />
     </main>

@@ -50,9 +50,7 @@ export function Home() {
         }}
         keyExtractor={(row) => row.id}
         actionColumn={{
-          edit: (row) => {
-            console.log('edit', row)
-          },
+          edit: (row) => Routes.accountReceivableEdit(row.id),
           delete: (row) => {
             console.log('delete', row)
           },

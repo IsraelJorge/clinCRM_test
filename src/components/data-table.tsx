@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { Icon } from './icon'
 import { Button } from './ui/button'
 import { Table, TableHeader, TableRow, TableBody, TableCell } from './ui/table'
@@ -20,7 +22,7 @@ export type ColumnInfo<TData extends Record<string, unknown>> = {
 
 export interface ActionColumn<Data extends Record<string, unknown>> {
   header?: string
-  edit?: (row: Data) => void
+  edit?: (row: Data) => string
   delete?: (row: Data) => void
 }
 
@@ -41,7 +43,9 @@ export function DataTable<TData extends Record<string, unknown>>({
         <div className="flex w-full items-center justify-center gap-2">
           {actionColumn?.edit && (
             <Button size="icon" data-testid={`edit-${index}`}>
-              <Icon name="PenIcon" size={16} />
+              <Link to={actionColumn.edit(item)}>
+                <Icon name="PenIcon" size={16} />
+              </Link>
             </Button>
           )}
 
