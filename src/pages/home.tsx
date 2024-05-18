@@ -87,12 +87,20 @@ export function Home() {
           <Icon name="CircleDollarSign" size={24} />
           <h1>Contas a receber</h1>
         </div>
-        <Button asChild>
-          <Link to={Routes.accountReceivableRegister}>
-            <Icon name="Plus" size={20} />
-            Nova conta
-          </Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" asChild>
+            <Link to={Routes.dashboard}>
+              <Icon name="BarChartBig" size={20} />
+              Visualizar gráficos
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link to={Routes.accountReceivableRegister}>
+              <Icon name="Plus" size={20} />
+              Nova conta
+            </Link>
+          </Button>
+        </div>
       </header>
       <DataTable
         data={accountReceivablesPaged}

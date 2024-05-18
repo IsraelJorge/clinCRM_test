@@ -1,4 +1,5 @@
 import { ptBR } from 'date-fns/locale/pt-BR'
+import { DateRange, DaySelectionMode } from 'react-day-picker'
 import {
   Control,
   FieldValues,
@@ -32,7 +33,11 @@ export type DateInputProps<TFields extends FieldValues> = {
   children?: React.ReactNode
   disabled?: boolean
   className?: string
+  mode?: DaySelectionMode
+  onChange?: (params?: DateParams) => void
 }
+
+type DateParams = Date | DateRange | Date[] | undefined
 
 export function DateInputRoot<TFields extends FieldValues>({
   name,
@@ -43,10 +48,48 @@ export function DateInputRoot<TFields extends FieldValues>({
   children,
   disabled,
   className,
+  mode = 'single',
+  onChange,
 }: DateInputProps<TFields>) {
   const hasError = checkChildrenHasError(children as ChildrenError)
 
   const { field } = useController({ name, control, defaultValue, disabled })
+
+  const handleChangeDate = (params?: DateParams) => {
+    field.onChange(params)
+    onChange?.(params)
+  }
+
+  const DisplayDateMap: { [key in DaySelectionMode]: () => string } = {
+    single: () => DateHelper.format({ value: field.value }),
+    range: () => {
+      const date = field.value as DateRange
+      const startDate = DateHelper.format({ value: date.from })
+      const endDate = date.to
+        ? ' - ' + DateHelper.format({ value: date.to })
+        : ''
+      return `${startDate}${endDate}`
+    },
+    multiple: () => {
+      const dates = field.value as Date[]
+      return dates.map((date) => DateHelper.format({ value: date })).join(', ')
+    },
+    default: () => DateHelper.format({ value: field.value }),
+  }
+
+  const DefaultMonthMap: { [key in DaySelectionMode]: () => Date | undefined } =
+    {
+      single: () => field.value,
+      range: () => {
+        const date = field.value as DateRange
+        return date?.from
+      },
+      multiple: () => {
+        const dates = field.value as Date[]
+        return dates[0]
+      },
+      default: () => field.value,
+    }
 
   return (
     <div
@@ -66,7 +109,7 @@ export function DateInputRoot<TFields extends FieldValues>({
             )}
           >
             {field.value ? (
-              DateHelper.format({ value: field.value })
+              <span>{DisplayDateMap[mode]()}</span>
             ) : (
               <span>{placeholder}</span>
             )}
@@ -75,11 +118,12 @@ export function DateInputRoot<TFields extends FieldValues>({
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
-            mode="single"
+            mode={mode}
             locale={ptBR}
             selected={field.value ?? defaultValue}
-            onSelect={field.onChange}
+            onSelect={handleChangeDate}
             disabled={(date) => date < new Date('1900-01-01')}
+            defaultMonth={DefaultMonthMap[mode]()}
             initialFocus
           />
         </PopoverContent>
