@@ -37,9 +37,7 @@ export const Default = () => (
     }}
     keyExtractor={(row) => row.id}
     actionColumn={{
-      edit: (row) => {
-        console.log('edit', row)
-      },
+      edit: (row) => row.id,
       delete: (row) => {
         console.log('delete', row)
       },

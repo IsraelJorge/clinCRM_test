@@ -4,10 +4,11 @@ import { DataTable } from '@/components/data-table'
 import { Icon } from '@/components/icon'
 import { ContainerLayout } from '@/components/layouts/container-layout'
 import { Button } from '@/components/ui/button'
-import { useAccountReceivableDelete } from '@/data/hooks/useAccountReceivableDelete'
-import { useAccountReceivableFindAll } from '@/data/hooks/useAccountReceivableFindAll'
-import { useLocalStorage } from '@/data/hooks/useLocalStorage'
 import { AccountReceivable } from '@/data/schemas/AccountReceivable'
+import {
+  Types,
+  useAccountReceivable,
+} from '@/providers/account-receivable-provider'
 import { useDialog } from '@/providers/dialog-provider'
 import { PaymentMethodMap } from '@/utils/PaymentMethodMap'
 import { Routes } from '@/utils/ui/Routes'
@@ -15,12 +16,7 @@ import { Routes } from '@/utils/ui/Routes'
 export function Home() {
   const { showDialog } = useDialog()
 
-  const { accountReceivables } = useAccountReceivableFindAll()
-  const { remove } = useAccountReceivableDelete()
-
-  const { onRefreshLocalStorage, refreshLocalStorage } = useLocalStorage()
-
-  console.log({ refreshLocalStorage })
+  const { accountReceivables, dispatch } = useAccountReceivable()
 
   const handleDelete = (data: AccountReceivable) => {
     showDialog({
@@ -34,8 +30,7 @@ export function Home() {
         {
           label: 'Sim',
           onClick: () => {
-            remove(data.id)
-            onRefreshLocalStorage()
+            dispatch({ type: Types.REMOVE, payload: { id: data.id } })
           },
         },
       ],

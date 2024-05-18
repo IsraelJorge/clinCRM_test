@@ -4,17 +4,20 @@ import { toast } from 'react-toastify'
 import { AccountReceivableForm } from '@/components/account-receivable-form'
 import { ContainerLayout } from '@/components/layouts/container-layout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useAccountReceivableCreate } from '@/data/hooks/useAccountReceivableCreate'
 import { AccountReceivableForm as AccountReceivableFormType } from '@/data/schemas/AccountReceivable'
+import {
+  Types,
+  useAccountReceivable,
+} from '@/providers/account-receivable-provider'
 import { Routes } from '@/utils/ui/Routes'
 
 export function AccountReceivableRegister() {
   const navigate = useNavigate()
 
-  const { create } = useAccountReceivableCreate()
+  const { dispatch } = useAccountReceivable()
 
   const handleSubmitAccountReceivable = (data: AccountReceivableFormType) => {
-    create(data)
+    dispatch({ type: Types.ADD, payload: data })
     toast('Conta a receber criada com sucesso', { type: 'success' })
     navigate(Routes.home)
   }
