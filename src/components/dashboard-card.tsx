@@ -15,7 +15,7 @@ export function DashboardCard({
   info,
 }: DashboardCardProps) {
   return (
-    <Card className="flex-1 rounded-xl border bg-card text-card-foreground shadow">
+    <Card className="flex-1 rounded-xl border bg-background text-card-foreground shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
         <CardTitle className="text-sm font-medium tracking-tight">
           {title}

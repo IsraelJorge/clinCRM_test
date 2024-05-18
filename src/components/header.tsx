@@ -3,7 +3,7 @@ import { ToggleThemeButton } from './ui/toggle-theme-button'
 
 export function Header() {
   return (
-    <header className="bg-card-foreground p-4 text-muted">
+    <header className="border-b border-border bg-card p-4 text-card-foreground shadow">
       <ContainerLayout className="flex items-center justify-between">
         <div className="text-2xl font-bold">ClinCRM</div>
         <ToggleThemeButton />

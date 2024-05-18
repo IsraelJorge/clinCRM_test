@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
-import { getLocalStorageValue } from '@/utils/localStorage'
+import {
+  getLocalStorageValue,
+  setValueLocalStorage,
+} from '@/utils/localStorage'
 
 export type ThemeProviderProps = {
   children: React.ReactNode
@@ -31,6 +34,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     root.classList.remove('light', 'dark')
 
     root.classList.add(theme)
+    setValueLocalStorage('theme', theme)
   }, [theme])
 
   return (

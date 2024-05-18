@@ -8,8 +8,8 @@
   }
 
   tr {
-    @apply relative block max-w-full border-b-4 border-muted
-      lg:table-row lg:border-b-0;
+    @apply relative block max-w-full border-b-4 border-border
+      lg:table-row lg:border-b;
   }
 
   tr:last-child {
@@ -31,11 +31,11 @@
 
   tbody tr,
   tbody tr:nth-child(odd) {
-    @apply lg:bg-muted;
+    @apply lg:bg-muted/50;
   }
 
   tbody tr:nth-child(odd) {
-    @apply lg:bg-muted/50;
+    @apply lg:bg-card;
   }
 
   td:before {
