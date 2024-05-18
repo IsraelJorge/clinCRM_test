@@ -7,13 +7,13 @@ import { Icon } from '@/components/icon'
 import { ContainerLayout } from '@/components/layouts/container-layout'
 import { Pagination } from '@/components/pagination'
 import { Button } from '@/components/ui/button'
-import { AccountReceivable } from '@/data/schemas/AccountReceivable'
-import { usePaginate } from '@/hooks/ui/usePaginate'
 import {
   Types,
   useAccountReceivable,
-} from '@/providers/account-receivable-provider'
-import { useDialog } from '@/providers/dialog-provider'
+} from '@/contexts/account-receivable-context'
+import { useDialog } from '@/contexts/dialog-context'
+import { AccountReceivable } from '@/data/schemas/AccountReceivable'
+import { usePaginate } from '@/hooks/ui/usePaginate'
 import { PaymentMethodMap } from '@/utils/PaymentMethodMap'
 import { PriceHelper } from '@/utils/PriceHelper'
 import { Routes } from '@/utils/ui/Routes'

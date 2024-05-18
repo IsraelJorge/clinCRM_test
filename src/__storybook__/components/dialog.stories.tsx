@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react'
 
 import { Dialog } from '@/components/dialog'
 import { Button } from '@/components/ui/button'
-import { useDialog } from '@/providers/dialog-provider'
+import { useDialog } from '@/contexts/dialog-context'
 
 export default {
   title: 'components/Dialog',

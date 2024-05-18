@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { initialTotaisValues } from '@/providers/account-receivable-provider'
+import { initialTotaisValues } from '@/contexts/account-receivable-context'
 import { DateHelper } from '@/utils/DateHelper'
 import {
   getLocalStorageValue,

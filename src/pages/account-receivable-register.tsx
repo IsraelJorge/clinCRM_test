@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { AccountReceivableForm } from '@/components/account-receivable-form'
@@ -10,36 +8,28 @@ import { AccountReceivableForm as AccountReceivableFormType } from '@/data/schem
 import {
   Types,
   useAccountReceivable,
-} from '@/providers/account-receivable-provider'
+} from '@/contexts/account-receivable-context'
 import { Routes } from '@/utils/ui/Routes'
 
-export function AccountReceivableEdit() {
+export function AccountReceivableRegister() {
   const navigate = useNavigate()
-  const { id } = useParams() as { id: string }
 
-  const { dispatch, accountReceivable } = useAccountReceivable()
+  const { dispatch } = useAccountReceivable()
 
-  const handleSubmitEdit = (data: AccountReceivableFormType) => {
-    dispatch({ type: Types.UPDATE, payload: data })
-    toast('Conta a receber editada com sucesso', { type: 'success' })
+  const handleSubmitAccountReceivable = (data: AccountReceivableFormType) => {
+    dispatch({ type: Types.ADD, payload: data })
+    toast('Conta a receber criada com sucesso', { type: 'success' })
     navigate(Routes.home)
   }
-
-  useEffect(() => {
-    dispatch({ type: Types.GET, payload: { id } })
-  }, [id])
 
   return (
     <ContainerLayout className="flex h-full flex-auto items-center justify-center">
       <Card className="max-w-screen-sm">
         <CardHeader>
-          <CardTitle>Editar Conta a receber</CardTitle>
+          <CardTitle>Nova Conta a receber</CardTitle>
         </CardHeader>
         <CardContent>
-          <AccountReceivableForm
-            onSubmit={handleSubmitEdit}
-            defaultValue={accountReceivable}
-          />
+          <AccountReceivableForm onSubmit={handleSubmitAccountReceivable} />
         </CardContent>
       </Card>
     </ContainerLayout>

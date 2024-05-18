@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { useDialog } from '@/providers/dialog-provider'
+import { useDialog } from '@/contexts/dialog-context'
 
 export function Dialog() {
   const { current, closeDialog } = useDialog()

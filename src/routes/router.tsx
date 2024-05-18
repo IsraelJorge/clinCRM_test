@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { AccountReceivableEdit } from '@/pages/account-receivable/account-receivable-edit'
-import { AccountReceivableRegister } from '@/pages/account-receivable/account-receivable-register'
+import { AccountReceivableEdit } from '@/pages/account-receivable-edit'
+import { AccountReceivableRegister } from '@/pages/account-receivable-register'
 import { Home } from '@/pages/home'
 import { Routes } from '@/utils/ui/Routes'
 

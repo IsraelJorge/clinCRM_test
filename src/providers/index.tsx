@@ -2,10 +2,10 @@ import { ToastContainer } from 'react-toastify'
 
 import { Dialog } from '@/components/dialog'
 
-import { AccountReceivableProvider } from './account-receivable-provider'
-import { DialogProvider } from './dialog-provider'
-import { RouterProvider } from './router-provider'
-import { ThemeProvider } from './theme-provider'
+import { AccountReceivableProvider } from '../contexts/account-receivable-context'
+import { DialogProvider } from '../contexts/dialog-context'
+import { ThemeProvider } from '../contexts/theme-context'
+import { RouterProvider } from '../routes/router-provider'
 
 export type ProvidersProps = {
   children: React.ReactNode

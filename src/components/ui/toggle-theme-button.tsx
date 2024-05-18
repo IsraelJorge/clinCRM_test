@@ -1,4 +1,4 @@
-import { useTheme } from '@/providers/theme-provider'
+import { useTheme } from '@/contexts/theme-context'
 
 import { Icon } from '../icon'
 import { Button } from './button'
