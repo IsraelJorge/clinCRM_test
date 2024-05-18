@@ -1,10 +1,12 @@
 import { faker } from '@faker-js/faker'
 
+import { initialTotaisValues } from '@/providers/account-receivable-provider'
 import { DateHelper } from '@/utils/DateHelper'
 import {
   getLocalStorageValue,
   setValueLocalStorage,
 } from '@/utils/localStorage'
+import { PriceHelper } from '@/utils/PriceHelper'
 
 import {
   AccountReceivable,
@@ -32,19 +34,23 @@ export const AccountReceivableStorage = {
 
     const newAccountsReceivable = [newAccount, ...accountReceivable]
 
-    const hasExist = accountReceivable.find(
+    const hasExist = newAccountsReceivable.find(
       (ac) =>
         DateHelper.format({ value: ac.issuanceDate }) ===
           DateHelper.format({ value: newAccount.issuanceDate }) &&
         ac.amount === newAccount.amount &&
         ac.operationPerformed === newAccount.operationPerformed &&
         ac.patientName === newAccount.patientName &&
-        ac.paymentMethod === newAccount.paymentMethod,
+        ac.paymentMethod === newAccount.paymentMethod &&
+        ac.id !== newAccount.id,
     )
 
     if (!hasExist) setValueLocalStorage(keyStorage, newAccountsReceivable)
 
-    const resultAccount = AccountReceivableSchema.parse(newAccount)
+    const resultAccount = AccountReceivableSchema.parse({
+      ...newAccount,
+      id: hasExist?.id ?? newAccount.id,
+    })
 
     return resultAccount
   },
@@ -82,13 +88,17 @@ export const AccountReceivableStorage = {
     return resultAccount
   },
   get: (id: string) => {
-    const accountReceivable = getLocalStorageValue<AccountReceivable[]>(
-      keyStorage,
-    ).find((item) => item.id === id)
+    try {
+      const accountReceivable = getLocalStorageValue<AccountReceivable[]>(
+        keyStorage,
+      ).find((item) => item.id === id)
 
-    const result = AccountReceivableSchema.parse(accountReceivable)
+      const result = AccountReceivableSchema.parse(accountReceivable)
 
-    return result
+      return result
+    } catch (error) {
+      console.log(error)
+    }
   },
   findAll: () => {
     const accountReceivables =
@@ -97,5 +107,20 @@ export const AccountReceivableStorage = {
     const result = AccountReceivableSchema.array().parse(accountReceivables)
 
     return result
+  },
+  calculateTotaisAccountReceivable: () => {
+    const accountReceivables =
+      getLocalStorageValue<AccountReceivable[]>(keyStorage)
+
+    const total = accountReceivables.reduce((acc, item) => {
+      return {
+        totalOperations: accountReceivables.length,
+        totalPatients: accountReceivables.length,
+        totalReceivable:
+          acc.totalReceivable + PriceHelper.convertToNumber(item.amount),
+      }
+    }, initialTotaisValues)
+
+    return total
   },
 }

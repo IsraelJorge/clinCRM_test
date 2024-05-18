@@ -9,10 +9,7 @@ export const AccountReceivableSchema = z.object({
   id: z.string(),
   patientName: z.string(),
   operationPerformed: z.string(),
-  amount: z
-    .string()
-    .or(z.number())
-    .transform((value) => PriceHelper.formatCurrency(value)),
+  amount: z.string().transform((value) => PriceHelper.formatDecimal(value)),
   paymentMethod: PaymentMethodSchema,
   issuanceDate: z.coerce.date(),
 })
@@ -30,8 +27,7 @@ export const AccountReceivableFormSchema = z.object({
   amount: z
     .string()
     .min(1, Error.min(1))
-    .or(z.number())
-    .transform((value) => PriceHelper.convertToNumber(value)),
+    .transform((value) => PriceHelper.convertToNumber(value).toString()),
   paymentMethod: PaymentMethodSchema.refine((value) => !!value, {
     message: Error.selectLeastOneOption,
   }),

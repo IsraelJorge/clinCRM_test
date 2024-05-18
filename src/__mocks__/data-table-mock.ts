@@ -14,7 +14,9 @@ const range = (len: number) => {
 const newAccountReceivable = (): AccountReceivable => {
   return {
     id: faker.string.uuid(),
-    amount: faker.number.float({ min: 100, max: 10000, precision: 2 }),
+    amount: faker.number
+      .float({ min: 100, max: 10000, precision: 2 })
+      .toString(),
     issuanceDate: faker.date.past(),
     operationPerformed: faker.lorem.words({ min: 6, max: 10 }),
     patientName: faker.person.fullName(),

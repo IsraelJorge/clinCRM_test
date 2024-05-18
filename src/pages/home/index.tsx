@@ -13,12 +13,14 @@ import {
 } from '@/providers/account-receivable-provider'
 import { useDialog } from '@/providers/dialog-provider'
 import { PaymentMethodMap } from '@/utils/PaymentMethodMap'
+import { PriceHelper } from '@/utils/PriceHelper'
 import { Routes } from '@/utils/ui/Routes'
 
 export function Home() {
   const { showDialog } = useDialog()
 
-  const { accountReceivables, dispatch } = useAccountReceivable()
+  const { accountReceivables, totaisAccountReceivable, dispatch } =
+    useAccountReceivable()
 
   const handleDelete = (data: AccountReceivable) => {
     showDialog({
@@ -41,28 +43,24 @@ export function Home() {
 
   const dashboardCardListData: DashboardCardProps[] = [
     {
-      title: 'Total Revenue',
+      title: 'Total a receber',
       iconName: 'PieChart',
-      value: '$1,204',
-      info: 'Last 30 days',
+      value: PriceHelper.formatCurrency(
+        totaisAccountReceivable.totalReceivable,
+      ),
+      info: 'Últimos 30 dias',
     },
     {
-      title: 'Total Patients',
+      title: 'Total de pacientes',
       iconName: 'User',
-      value: '204',
-      info: 'Last 30 days',
+      value: totaisAccountReceivable.totalPatients.toString(),
+      info: 'Últimos 30 dias',
     },
     {
-      title: 'Total Appointments',
+      title: 'Total de atendimentos',
       iconName: 'Calendar',
-      value: '204',
-      info: 'Last 30 days',
-    },
-    {
-      title: 'Total Procedures',
-      iconName: 'Scale',
-      value: '204',
-      info: 'Last 30 days',
+      value: totaisAccountReceivable.totalOperations.toString(),
+      info: 'Últimos 30 dias',
     },
   ]
 
@@ -95,7 +93,7 @@ export function Home() {
           },
           amount: {
             header: 'Valor',
-            transform: (value) => value,
+            transform: (value) => PriceHelper.formatCurrency(value),
           },
           paymentMethod: {
             header: 'Método de pagamento',

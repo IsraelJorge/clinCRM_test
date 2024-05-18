@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useMemo, useReducer } from 'react'
 
 import { ActionMapType } from '@/@types'
 import {
@@ -31,14 +31,27 @@ type Payload = {
 
 type ActionsType = ActionMapType<Payload>[keyof ActionMapType<Payload>]
 
+export type TotaisAccountReceivable = {
+  totalReceivable: number
+  totalPatients: number
+  totalOperations: number
+}
+export const initialTotaisValues: TotaisAccountReceivable = {
+  totalOperations: 0,
+  totalPatients: 0,
+  totalReceivable: 0,
+}
+
 type InitialState = {
   accountReceivables: AccountReceivable[]
   accountReceivable: AccountReceivable | undefined
+  totaisAccountReceivable: TotaisAccountReceivable
 }
 
 const initialState: InitialState = {
   accountReceivables: [],
   accountReceivable: undefined,
+  totaisAccountReceivable: initialTotaisValues,
 }
 
 const AccountReceivableContext = createContext({} as AccountReceivableContext)
@@ -49,8 +62,8 @@ const reducer = (state: InitialState, action: ActionsType) => {
       return {
         ...state,
         accountReceivables: [
-          ...state.accountReceivables,
           AccountReceivableStorage.create(action.payload),
+          ...state.accountReceivables,
         ],
       }
     case Types.REMOVE:
@@ -81,11 +94,16 @@ export function AccountReceivableProvider({
     accountReceivables: AccountReceivableStorage.findAll(),
   }))
 
+  const totaisAccountReceivable = useMemo(() => {
+    return AccountReceivableStorage.calculateTotaisAccountReceivable()
+  }, [state.accountReceivables])
+
   return (
     <AccountReceivableContext.Provider
       value={{
         accountReceivable: state.accountReceivable,
         accountReceivables: state.accountReceivables,
+        totaisAccountReceivable,
         dispatch,
       }}
     >
