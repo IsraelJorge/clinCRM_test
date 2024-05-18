@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+import { DashboardCardProps } from '@/components/dashboard-card'
+import { DashboardCardList } from '@/components/dashboard-card-list'
 import { DataTable } from '@/components/data-table'
 import { Icon } from '@/components/icon'
 import { ContainerLayout } from '@/components/layouts/container-layout'
@@ -37,8 +39,39 @@ export function Home() {
     })
   }
 
+  const dashboardCardListData: DashboardCardProps[] = [
+    {
+      title: 'Total Revenue',
+      iconName: 'PieChart',
+      value: '$1,204',
+      info: 'Last 30 days',
+    },
+    {
+      title: 'Total Patients',
+      iconName: 'User',
+      value: '204',
+      info: 'Last 30 days',
+    },
+    {
+      title: 'Total Appointments',
+      iconName: 'Calendar',
+      value: '204',
+      info: 'Last 30 days',
+    },
+    {
+      title: 'Total Procedures',
+      iconName: 'Scale',
+      value: '204',
+      info: 'Last 30 days',
+    },
+  ]
+
   return (
     <ContainerLayout>
+      <div className="py-5">
+        <DashboardCardList dashboardCards={dashboardCardListData} />
+      </div>
+
       <header className="flex items-center justify-between py-5">
         <div className="flex items-center gap-3">
           <Icon name="CircleDollarSign" size={24} />
