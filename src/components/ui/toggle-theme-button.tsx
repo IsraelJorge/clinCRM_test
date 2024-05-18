@@ -1,0 +1,19 @@
+import { useTheme } from '@/providers/theme-provider'
+
+import { Icon } from '../icon'
+import { Button } from './button'
+
+export function ToggleThemeButton() {
+  const { theme, toggleTheme } = useTheme()
+
+  return (
+    <Button
+      onClick={toggleTheme}
+      className="rounded-full"
+      size="icon"
+      variant="ghost"
+    >
+      <Icon name={theme === 'light' ? 'Sun' : 'MoonStar'} size={20} />
+    </Button>
+  )
+}
