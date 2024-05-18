@@ -5,8 +5,10 @@ import { DashboardCardList } from '@/components/dashboard-card-list'
 import { DataTable } from '@/components/data-table'
 import { Icon } from '@/components/icon'
 import { ContainerLayout } from '@/components/layouts/container-layout'
+import { Pagination } from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { AccountReceivable } from '@/data/schemas/AccountReceivable'
+import { usePaginate } from '@/hooks/ui/usePaginate'
 import {
   Types,
   useAccountReceivable,
@@ -21,6 +23,16 @@ export function Home() {
 
   const { accountReceivables, totaisAccountReceivable, dispatch } =
     useAccountReceivable()
+
+  const {
+    pagedData: accountReceivablesPaged,
+    handlePageChange,
+    page,
+    totalPages,
+  } = usePaginate({
+    data: accountReceivables,
+    pageSize: 5,
+  })
 
   const handleDelete = (data: AccountReceivable) => {
     showDialog({
@@ -83,7 +95,7 @@ export function Home() {
         </Button>
       </header>
       <DataTable
-        data={accountReceivables}
+        data={accountReceivablesPaged}
         columns={{
           patientName: {
             header: 'Nome do paciente',
@@ -110,6 +122,11 @@ export function Home() {
           delete: (row) => handleDelete(row),
         }}
         emptyMessage="Sem contas a receber cadastradas"
+      />
+      <Pagination
+        onPaginate={handlePageChange}
+        page={page}
+        totalPages={totalPages}
       />
     </ContainerLayout>
   )

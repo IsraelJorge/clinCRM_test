@@ -15,7 +15,7 @@ import {
   AccountReceivableSchema,
 } from '../schemas/AccountReceivable'
 
-const keyStorage = 'accountReceivable'
+export const keyStorage = 'accountReceivable'
 
 export const AccountReceivableStorage = {
   create: (data: AccountReceivableForm) => {
