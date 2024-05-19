@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker'
 
-import { initialTotaisValues } from '@/contexts/account-receivable-context'
+import { TotaisAccountReceivable } from '@/contexts/account-receivable-context'
 import { DateHelper } from '@/utils/DateHelper'
+import { getFirstAndLastDate } from '@/utils/getFirstAndLastDate'
 import {
   getLocalStorageValue,
   setValueLocalStorage,
@@ -108,19 +109,29 @@ export const AccountReceivableStorage = {
 
     return result
   },
-  calculateTotaisAccountReceivable: () => {
-    const accountReceivables =
-      getLocalStorageValue<AccountReceivable[]>(keyStorage)
+  calculateTotaisAccountReceivable: (
+    accountReceivables: AccountReceivable[],
+  ): TotaisAccountReceivable => {
+    const totalReceivable = accountReceivables.reduce(
+      (acc, item) => acc + PriceHelper.convertToNumber(item.amount),
+      0,
+    )
 
-    const total = accountReceivables.reduce((acc, item) => {
-      return {
-        totalOperations: accountReceivables.length,
-        totalPatients: accountReceivables.length,
-        totalReceivable:
-          acc.totalReceivable + PriceHelper.convertToNumber(item.amount),
-      }
-    }, initialTotaisValues)
+    const totalPatients = new Set(
+      accountReceivables.map((item) => item.patientName),
+    ).size
 
-    return total
+    const totalOperations = accountReceivables.length
+
+    const { firstDate, lastDate } = getFirstAndLastDate(accountReceivables)
+
+    const totalDates = DateHelper.differenceInDays(firstDate, lastDate)
+
+    return {
+      totalOperations,
+      totalPatients,
+      totalReceivable,
+      totalDates,
+    }
   },
 }

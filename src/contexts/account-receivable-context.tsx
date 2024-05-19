@@ -35,11 +35,13 @@ export type TotaisAccountReceivable = {
   totalReceivable: number
   totalPatients: number
   totalOperations: number
+  totalDates: number
 }
 export const initialTotaisValues: TotaisAccountReceivable = {
   totalOperations: 0,
   totalPatients: 0,
   totalReceivable: 0,
+  totalDates: 0,
 }
 
 type InitialState = {
@@ -95,7 +97,9 @@ export function AccountReceivableProvider({
   }))
 
   const totaisAccountReceivable = useMemo(() => {
-    return AccountReceivableStorage.calculateTotaisAccountReceivable()
+    return AccountReceivableStorage.calculateTotaisAccountReceivable(
+      state.accountReceivables,
+    )
   }, [state.accountReceivables])
 
   return (

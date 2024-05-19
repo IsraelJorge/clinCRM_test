@@ -1,4 +1,9 @@
-import { format as formatFn, parse, parseISO } from 'date-fns'
+import {
+  differenceInDays as diffInDays,
+  format as formatFn,
+  parse,
+  parseISO,
+} from 'date-fns'
 import * as dfLocales from 'date-fns/locale'
 
 const locales = { en: dfLocales.enUS, pt: dfLocales.ptBR }
@@ -43,5 +48,8 @@ export const DateHelper = {
     } catch (e) {
       return null
     }
+  },
+  differenceInDays(startDate: Date, endDate: Date) {
+    return diffInDays(endDate, startDate)
   },
 }

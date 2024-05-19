@@ -5,4 +5,5 @@ export const Error = {
   selectLeastOneOption: 'Selecione ao menos uma opção',
   min: (size: number) => `No mínimo ${size} caracteres`,
   max: (size: number) => `No máximo ${size} caracteres`,
+  dateRange: 'Selecione um intervalo de datas',
 }
