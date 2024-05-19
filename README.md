@@ -1,30 +1,107 @@
-# React + TypeScript + Vite
+clinCRM_test
+------------
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bem-vindo ao projeto clinCRM_test! Este projeto foi desenvolvido utilizando React, Vite, TypeScript, Shadcn, Tailwind CSS, Zod e React Hook Form. Este README irá guiá-lo sobre como configurar e rodar o projeto localmente.
 
-Currently, two official plugins are available:
+### Índice
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   [Pré-requisitos](#pr%C3%A9-requisitos)
+-   [Instalação](#instala%C3%A7%C3%A3o)
+-   [Rodando o Projeto](#rodando-o-projeto)
+-   [Deploy do Projeto](#deploy-do-projeto)
+-   [Estrutura do Projeto](#estrutura-do-projeto)
+-   [Tecnologias Utilizadas](#tecnologias-utilizadas)
+-   [Contribuindo](#contribuindo)
+-   [Licença](#licen%C3%A7a)
 
-## Expanding the ESLint configuration
+### Pré-requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Certifique-se de ter os seguintes itens instalados em seu sistema:
 
-- Configure the top-level `parserOptions` property like this:
+-   Node.js (versão 14 ou superior)
+-   npm ou yarn
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Instalação
+
+1.  Clone o repositório:
+
+```
+git clone https://github.com/IsraelJorge/clinCRM_test.git
+cd clinCRM_test
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1.  Instale as dependências:
+
+**Usando npm:**
+
+```
+npm install
+```
+
+**Ou usando yarn:**
+
+```
+yarn install
+```
+
+### Rodando o Projeto
+
+Para iniciar o projeto localmente, use o seguinte comando:
+
+**Usando npm:**
+
+```
+npm run dev
+```
+
+**Ou usando yarn:**
+
+```
+yarn dev
+```
+
+A aplicação estará disponível em http://localhost:3000.
+
+### Deploy do Projeto
+
+O projeto está deployado no Firebase Hosting. Você pode visualizá-lo ao vivo aqui <https://es.wiktionary.org/wiki/removido>.
+
+### Estrutura do Projeto
+
+Aqui está uma visão geral da estrutura do projeto:
+
+```
+clinCRM_test/
+├── public/             # Arquivos estáticos
+├── src/                # Arquivos fonte
+│   ├── components/     # Componentes React
+│   ├── hooks/          # Hooks customizados
+│   ├── pages/          # Componentes de páginas
+│   ├── styles/         # Estilos Tailwind CSS
+│   ├── @types/          # Tipos TypeScript
+│   ├── utils/          # Funções utilitárias
+│   └── App.tsx         # Componente principal da aplicação
+├── .gitignore          # Arquivo de ignore do Git
+├── index.html          # Arquivo HTML principal
+├── package.json        # Metadados do projeto e dependências
+├── tsconfig.json       # Configuração do TypeScript
+└── vite.config.ts      # Configuração do Vite
+```
+
+### Tecnologias Utilizadas
+
+-   React: Uma biblioteca JavaScript para construção de interfaces de usuário.
+-   Vite: Uma ferramenta de build rápida para projetos web modernos.
+-   TypeScript: Um superset do JavaScript que adiciona tipos estáticos.
+-   Shadcn: Uma biblioteca de componentes.
+-   Tailwind CSS: Um framework CSS utilitário.
+-   Zod: Uma biblioteca de declaração e validação de schemas, orientada para TypeScript.
+-   React Hook Form: Uma biblioteca para gerenciamento de estado e validação de formulários em React.
+
+### Contribuindo
+
+Contribuições são bem-vindas! Se você tiver alguma sugestão ou encontrar algum problema, por favor, abra uma issue ou envie um pull request.
+
+### Licença
+
+Este projeto está licenciado sob a licença MIT.
