@@ -10,7 +10,7 @@ import { Mask } from '@/utils/Mask'
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   noMargin?: boolean
-  mask?: 'currency' | 'name'
+  mask?: 'currency' | 'name' | 'date'
 }
 
 const InputRoot = React.forwardRef<HTMLInputElement, InputProps>(
@@ -29,6 +29,8 @@ const InputRoot = React.forwardRef<HTMLInputElement, InputProps>(
           return Mask.currency(value)
         case 'name':
           return Mask.name(value)
+        case 'date':
+          return Mask.date(value)
         default:
           return value
       }

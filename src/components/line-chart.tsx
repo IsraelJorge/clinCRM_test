@@ -25,7 +25,6 @@ import { orderAccountReceivableByDate } from '@/utils/orderAccountReceivableByDa
 import { DateInput } from './date-input'
 import { Form } from './form'
 import { Button } from './ui/button'
-import { Card } from './ui/card'
 
 ChartJS.register(
   CategoryScale,
@@ -93,7 +92,7 @@ export function LineChart({
   }, [accountReceivablesFiltered])
 
   return (
-    <Card className="max-w-2xl p-4">
+    <div className="flex h-full flex-col">
       <div>
         <Form schema={DateSearchSchema} onSubmit={handleFilterBetweenDates}>
           {({ control, formState: { errors } }) => (
@@ -116,7 +115,9 @@ export function LineChart({
           )}
         </Form>
       </div>
-      <Line data={data} options={options} />
-    </Card>
+      <div className="flex h-full flex-auto items-center justify-center">
+        <Line data={data} options={options} />
+      </div>
+    </div>
   )
 }

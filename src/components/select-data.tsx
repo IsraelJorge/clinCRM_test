@@ -22,6 +22,8 @@ import {
   checkChildrenHasError,
 } from '@/utils/checkChildrenHasError'
 
+import { Icon } from './icon'
+
 export type SelectDataProps<
   Data extends Record<string, unknown>,
   TFields extends FieldValues,
@@ -73,14 +75,26 @@ function SelectDataRoot<
         defaultValue={defaultValue}
         name={name}
       >
-        <SelectTrigger
-          className={cn({
-            '[&_span]:text-muted-foreground': !field.value,
-          })}
-          {...props}
-        >
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
+        <div className="relative">
+          <SelectTrigger
+            className={cn({
+              '[&_span]:text-muted-foreground': !field.value,
+            })}
+            {...props}
+          >
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+          {!!field.value && (
+            <Icon
+              name="X"
+              size={16}
+              className="absolute right-8 top-1/2 -translate-y-1/2 cursor-pointer text-destructive"
+              onClick={() => {
+                field.onChange(null)
+              }}
+            />
+          )}
+        </div>
         <SelectContent>
           <SelectGroup>
             {data.map((item) => {

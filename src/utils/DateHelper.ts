@@ -1,6 +1,7 @@
 import {
   differenceInDays as diffInDays,
   format as formatFn,
+  isValid,
   parse,
   parseISO,
 } from 'date-fns'
@@ -49,7 +50,19 @@ export const DateHelper = {
       return null
     }
   },
+  parseISOString(value: string | undefined | null) {
+    if (!value) return null
+
+    try {
+      return parseISO(value)
+    } catch (e) {
+      return null
+    }
+  },
   differenceInDays(startDate: Date, endDate: Date) {
     return diffInDays(endDate, startDate)
+  },
+  isValidDate(date: Date | null) {
+    return isValid(date)
   },
 }

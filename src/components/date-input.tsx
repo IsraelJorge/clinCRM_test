@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { ptBR } from 'date-fns/locale/pt-BR'
 import { DateRange, DaySelectionMode } from 'react-day-picker'
 import {
@@ -23,6 +25,7 @@ import {
 import { DateHelper } from '@/utils/DateHelper'
 
 import { Icon } from './icon'
+import { Input } from './ui/input'
 
 export type DateInputProps<TFields extends FieldValues> = {
   placeholder?: string
@@ -35,6 +38,8 @@ export type DateInputProps<TFields extends FieldValues> = {
   className?: string
   mode?: DaySelectionMode
   onChange?: (params?: DateParams) => void
+  isInputSearch?: boolean
+  inputProps?: React.ComponentProps<typeof Input>
 }
 
 type DateParams = Date | DateRange | Date[] | undefined
@@ -50,7 +55,11 @@ export function DateInputRoot<TFields extends FieldValues>({
   className,
   mode = 'single',
   onChange,
+  isInputSearch = false,
+  inputProps,
 }: DateInputProps<TFields>) {
+  const [inputValue, setInputValue] = useState('')
+
   const hasError = checkChildrenHasError(children as ChildrenError)
 
   const { field } = useController({ name, control, defaultValue, disabled })
@@ -58,6 +67,23 @@ export function DateInputRoot<TFields extends FieldValues>({
   const handleChangeDate = (params?: DateParams) => {
     field.onChange(params)
     onChange?.(params)
+
+    if (isInputSearch) {
+      if (mode === 'single') {
+        setInputValue(DateHelper.format({ value: params as Date }) ?? '')
+      }
+    }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const parsedDate = DateHelper.parseDate(e.target.value)
+
+    if (DateHelper.isValidDate(parsedDate)) {
+      if (mode === 'single') {
+        handleChangeDate(parsedDate as DateParams)
+      }
+    }
+    setInputValue(e.target.value)
   }
 
   const DisplayDateMap: { [key in DaySelectionMode]: () => string } = {
@@ -117,6 +143,18 @@ export function DateInputRoot<TFields extends FieldValues>({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
+          {isInputSearch && (
+            <div className="px-2 pt-3">
+              <Input
+                noMargin
+                onChange={handleInputChange}
+                value={inputValue}
+                mask="date"
+                {...inputProps}
+              />
+            </div>
+          )}
+
           <Calendar
             mode={mode}
             locale={ptBR}
