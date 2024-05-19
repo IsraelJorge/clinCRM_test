@@ -64,7 +64,7 @@ A aplicação estará disponível em http://localhost:3000.
 
 ### Deploy do Projeto
 
-O projeto está deployado no Firebase Hosting. Você pode visualizá-lo ao vivo aqui <https://es.wiktionary.org/wiki/removido>.
+O projeto está deployado na Vercel. Você pode visualizá-lo ao vivo aqui: [https://clin-crm-test.vercel.app/](https://clin-crm-test.vercel.app/).
 
 ### Estrutura do Projeto
 
