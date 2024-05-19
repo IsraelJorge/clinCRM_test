@@ -23,22 +23,22 @@ Certifique-se de ter os seguintes itens instalados em seu sistema:
 
 ### Instalação
 
-1.  Clone o repositório:
+1.  **Clone o repositório:**
 
 ```
 git clone https://github.com/IsraelJorge/clinCRM_test.git
 cd clinCRM_test
 ```
 
-1.  Instale as dependências:
+2.  **Instale as dependências:**
 
-**Usando npm:**
+Usando npm:
 
 ```
 npm install
 ```
 
-**Ou usando yarn:**
+Ou usando yarn:
 
 ```
 yarn install
@@ -48,13 +48,13 @@ yarn install
 
 Para iniciar o projeto localmente, use o seguinte comando:
 
-**Usando npm:**
+Usando npm:
 
 ```
 npm run dev
 ```
 
-**Ou usando yarn:**
+Ou usando yarn:
 
 ```
 yarn dev
