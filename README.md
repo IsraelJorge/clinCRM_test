@@ -77,7 +77,7 @@ clinCRM_test/
 │   ├── hooks/          # Hooks customizados
 │   ├── pages/          # Componentes de páginas
 │   ├── styles/         # Estilos Tailwind CSS
-│   ├── @types/          # Tipos TypeScript
+│   ├── @types/         # Tipos TypeScript
 │   ├── utils/          # Funções utilitárias
 │   └── App.tsx         # Componente principal da aplicação
 ├── .gitignore          # Arquivo de ignore do Git
