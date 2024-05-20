@@ -12,7 +12,6 @@ Bem-vindo ao projeto clinCRM_test! Este projeto foi desenvolvido utilizando Reac
 -   [Estrutura do Projeto](#estrutura-do-projeto)
 -   [Tecnologias Utilizadas](#tecnologias-utilizadas)
 -   [Contribuindo](#contribuindo)
--   [Licença](#licen%C3%A7a)
 
 ### Pré-requisitos
 
@@ -101,7 +100,3 @@ clinCRM_test/
 ### Contribuindo
 
 Contribuições são bem-vindas! Se você tiver alguma sugestão ou encontrar algum problema, por favor, abra uma issue ou envie um pull request.
-
-### Licença
-
-Este projeto está licenciado sob a licença MIT.
