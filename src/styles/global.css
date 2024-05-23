@@ -71,3 +71,19 @@
   @apply border-2
     border-destructive focus:border-red-500 focus:ring-destructive focus-visible:ring-destructive;
 }
+
+.nav-link.active {
+  @apply bg-primary text-primary-foreground dark:bg-muted;
+}
+
+.sidebar-root:not(.expanded) .sidebar-item {
+  @apply justify-center gap-0 p-0;
+}
+
+.sidebar-root.expanded .sidebar-item .sidebar-label {
+  @apply w-auto text-nowrap text-sm font-semibold opacity-100 transition-opacity duration-300;
+}
+
+.sidebar-root:not(.expanded) .sidebar-item .sidebar-label {
+  @apply w-0 text-[0] opacity-0 transition-opacity duration-300;
+}

@@ -8,3 +8,5 @@ export type ActionMapType<M extends { [index: string]: any }> = {
         payload: M[Key]
       }
 }
+
+export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'

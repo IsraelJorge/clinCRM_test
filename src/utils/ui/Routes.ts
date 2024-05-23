@@ -3,4 +3,5 @@ export const Routes = {
   accountReceivableRegister: '/account-receivable-register',
   accountReceivableEdit: (id: string) => `/account-receivable/${id}`,
   dashboard: '/dashboard',
+  logout: '/logout',
 } as const

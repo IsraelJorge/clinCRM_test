@@ -43,7 +43,7 @@ export function Dashboard() {
       <div className="py-5">
         <DashboardCardList dashboardCards={dashboardCardListData} />
       </div>
-      <div className="flex h-[30rem] gap-2 ">
+      <div className="flex h-[30rem] flex-wrap gap-2">
         <Card className="h-full flex-1 p-4">
           <LineChart
             accountReceivables={accountReceivables}
